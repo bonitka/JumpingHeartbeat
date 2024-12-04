@@ -2,13 +2,15 @@ package Game;
 
 import javax.swing.*;
 
-public class HeartHealthGameApp extends JFrame {
+public class JumpingHeartbeat extends JFrame {
     private Level currentLevel;
 
-    public HeartHealthGameApp() {
-        setTitle("Heart Health Game");
+    public JumpingHeartbeat() {
+        setTitle("Jumping Heartbeat");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(1280, 800);
+        setResizable(false);
+        setLocationRelativeTo(null);
 
         MainScreen mainScreen = new MainScreen(this);
         setContentPane(mainScreen);
@@ -20,6 +22,7 @@ public class HeartHealthGameApp extends JFrame {
         GameScreen gameScreen = new GameScreen(this, level);
         setContentPane(gameScreen);
         revalidate();
+        repaint();
     }
 
     public void returnToMainScreen() {
@@ -28,7 +31,14 @@ public class HeartHealthGameApp extends JFrame {
         revalidate();
     }
 
+    public void unlockNextLevel(int completedLevel) {
+        MainScreen mainScreen = (MainScreen) getContentPane();
+        if (completedLevel < mainScreen.unlockedLevels.length) {
+            mainScreen.unlockedLevels[completedLevel] = true;
+        }
+    }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(HeartHealthGameApp::new);
+        SwingUtilities.invokeLater(JumpingHeartbeat::new);
     }
 }
