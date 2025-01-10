@@ -41,7 +41,7 @@ class Level {
             }
             case 3 -> {
                 name = "Tachycardia";
-                ringSize = 30;
+                ringSize = 80;
                 speed = 4;
                 curve = new HeartRhythmCurve("Tachycardia");
             }
@@ -56,6 +56,18 @@ class Level {
                 ringSize = 40;
                 speed = 3;
                 curve = new HeartRhythmCurve("Bradycardia");
+            }
+            case 6 -> {
+                name="New";
+                ringSize = 50;
+                speed = 2;
+                curve = new HeartRhythmCurve("New");
+            }
+            case 8 -> {
+                name="Asystoly";
+                ringSize = 50;
+                speed = 2;
+                curve = new HeartRhythmCurve("Asystoly");
             }
         }
     }
