@@ -13,11 +13,11 @@ class MainScreen extends JPanel {
         educationalContent = new EducationalContent();
         educationalContent.loadFromFile("educational_content.txt");
 
-        unlockedLevels = new boolean[8];
+        /*unlockedLevels = new boolean[8];
         unlockedLevels[0] = true; // Odblokowany poziom 1
         for (int i = 1; i < unlockedLevels.length; i++) {
             unlockedLevels[i] = false; // Pozostałe poziomy zablokowane
-        }
+        }*/
 
         setLayout(new BorderLayout());
 
@@ -31,7 +31,8 @@ class MainScreen extends JPanel {
         for (int i = 1; i <= 8; i++) {
             int levelNumber = i;
             JButton levelButton = new JButton("Poziom " + levelNumber);
-            if (!unlockedLevels[i - 1]) {
+            //if (!unlockedLevels[i - 1]) {
+            if (1!=1) {
                 levelButton.setEnabled(false); // Wyłącz przycisk dla zablokowanego poziomu
             } else {
                 levelButton.addActionListener(e -> parent.startGame(createLevel(levelNumber)));

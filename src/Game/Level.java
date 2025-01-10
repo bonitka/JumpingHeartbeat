@@ -35,7 +35,7 @@ class Level {
             }
             case 2 -> {
                 name = "Normal";
-                ringSize = 50;
+                ringSize = 100;
                 speed = 2;
                 curve = new HeartRhythmCurve("Normal");
             }
