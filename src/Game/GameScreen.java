@@ -20,7 +20,7 @@ class GameScreen extends JPanel {
         this.parent = parent;
         this.level = level;
         this.score = 0;
-        ring = new Ring(new Point(100, 250), level.getRingSize(), level.getRingSize() * 2);
+        ring = new Ring(new Point(100, 250), level.getRingSize(), level.getRingSize() * 4);
 
         setFocusable(true);
         addHierarchyListener(e -> {

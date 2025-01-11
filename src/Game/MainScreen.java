@@ -7,6 +7,7 @@ class MainScreen extends JPanel {
     private JumpingHeartbeat parent;
     private EducationalContent educationalContent;
     public boolean[] unlockedLevels;
+    String levelNameForButton;
 
     public MainScreen(JumpingHeartbeat parent) {
         this.parent = parent;
@@ -30,7 +31,19 @@ class MainScreen extends JPanel {
 
         for (int i = 1; i <= 8; i++) {
             int levelNumber = i;
-            JButton levelButton = new JButton("Poziom " + levelNumber);
+            switch (i) {
+                case 1 -> levelNameForButton="Sine";
+                case 2 -> levelNameForButton="Healthy";
+                case 3 -> levelNameForButton="Sine";
+                case 4 -> levelNameForButton="Sine";
+                case 5 -> levelNameForButton="Sine";
+                case 6 -> levelNameForButton="Ventricular Tachycardia";
+                case 7 -> levelNameForButton="Tachycardia";
+                case 8 -> levelNameForButton="Asystoly";
+                default -> levelNameForButton="";
+            }
+            //JButton levelButton = new JButton("Poziom " + levelNumber+" \n"+levelNameForButton);
+            JButton levelButton = new JButton("<html><div style='text-align: center;'>Poziom " + levelNumber + "<br>" + levelNameForButton + "</div></html>");
             //if (!unlockedLevels[i - 1]) {
             if (1!=1) {
                 levelButton.setEnabled(false); // Wyłącz przycisk dla zablokowanego poziomu

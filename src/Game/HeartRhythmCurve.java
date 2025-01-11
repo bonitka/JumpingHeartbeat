@@ -21,12 +21,14 @@ class HeartRhythmCurve {
     public void generateCurve() {
         switch (rhythmName) {
             case "Sine" -> generateSine();
-            case "Normal" -> generateHealthyRhythm();
-            case "Tachycardia" -> generateTachycardia();
-            case "Arrhythmia" -> generateArrhythmia();
+            case "Healthy" -> generateHealthyRhythm();
             case "Bradycardia" -> generateBradycardia();
+            case "Atrial Fibrillation" -> generateFibrillation();
+            case "Arrhythmia" -> generateArrhythmia();
+            case "Ventricular Tachycardia" -> generateVentricularTachycardia();
+            case "Tachycardia" -> generateTachycardia();
             case "Asystoly" -> generateAsystoly();
-            case "New" -> generateNewCurve();
+            //case "New" -> generateNewCurve();
             default -> generateSine(); // Domyślny rytm
         }
     }
@@ -90,12 +92,20 @@ class HeartRhythmCurve {
         }
     }
 
+    private void generateVentricularTachycardia(){
+        curvePoints.clear();
+    }
+
     private void generateBradycardia() {
         curvePoints.clear();
         for (int x = 0; x < 800; x++) {
             int y = (int) (100 + 10 * Math.sin(0.05 * x)); // Wolniejsza sinusoida
             curvePoints.add(new Point(x, y));
         }
+    }
+
+    private void generateFibrillation(){
+        curvePoints.clear();
     }
 
     private void generateTachycardia() {
