@@ -79,6 +79,7 @@ class MainScreen extends JPanel {
             levelButton.setVerticalTextPosition(SwingConstants.BOTTOM);
             levelButton.setHorizontalTextPosition(SwingConstants.CENTER);
             levelButton.setContentAreaFilled(false);
+            levelButton.setFocusPainted(false);
 
             if (1!=1) {
                 levelButton.setEnabled(false); // Wyłącz przycisk dla zablokowanego poziomu
@@ -100,6 +101,40 @@ class MainScreen extends JPanel {
         rightPanel.add(infoButton, BorderLayout.NORTH);
         add(rightPanel, BorderLayout.EAST);
         rightPanel.setBackground(offWhite);
+
+        ImageIcon restart = new ImageIcon("restart.jpg");
+        Image scaledRestart = restart.getImage().getScaledInstance(70, 30, Image.SCALE_SMOOTH);
+        JButton restartButton = new JButton(new ImageIcon(scaledRestart));
+        restartButton.setContentAreaFilled(false);
+        restartButton.setBorderPainted(false);
+
+        ImageIcon finish = new ImageIcon("finish.jpg");
+        Image scaledFinish = finish.getImage().getScaledInstance(70, 30, Image.SCALE_SMOOTH);
+        JButton finishButton = new JButton(new ImageIcon(scaledFinish));
+        finishButton.setContentAreaFilled(false);
+        finishButton.setBorderPainted(false);
+
+        ImageIcon settings = new ImageIcon("settings.jpg");
+        Image scaledSettings = settings.getImage().getScaledInstance(90, 30, Image.SCALE_SMOOTH);
+        JButton settingsButton = new JButton(new ImageIcon(scaledSettings));
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setBorderPainted(false);
+
+        JPanel downPanel = new JPanel(new BorderLayout());
+        downPanel.setBackground(offWhite);
+
+        JPanel downleftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        downleftPanel.setBackground(offWhite);
+        downleftPanel.add(restartButton);
+        downleftPanel.add(finishButton);
+
+        JPanel downrightPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        downrightPanel.setBackground(offWhite);
+        downrightPanel.add(settingsButton);
+
+        downPanel.add(downleftPanel, BorderLayout.WEST);
+        downPanel.add(downrightPanel, BorderLayout.EAST);
+        add(downPanel, BorderLayout.SOUTH);
     }
 
     private Level createLevel(int levelNumber) {
