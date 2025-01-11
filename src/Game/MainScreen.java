@@ -32,14 +32,14 @@ class MainScreen extends JPanel {
         for (int i = 1; i <= 8; i++) {
             int levelNumber = i;
             switch (i) {
-                case 1 -> levelNameForButton="Sine";
-                case 2 -> levelNameForButton="Healthy";
-                case 3 -> levelNameForButton="Sine";
-                case 4 -> levelNameForButton="Sine";
-                case 5 -> levelNameForButton="Sine";
-                case 6 -> levelNameForButton="Ventricular Tachycardia";
-                case 7 -> levelNameForButton="Tachycardia";
-                case 8 -> levelNameForButton="Asystoly";
+                case 1 -> levelNameForButton="Sinus";
+                case 2 -> levelNameForButton="Zdrowy rytm serca";
+                case 3 -> levelNameForButton="Bradykardia";
+                case 4 -> levelNameForButton="Migotanie Przedsionków";
+                case 5 -> levelNameForButton="Arytmia";
+                case 6 -> levelNameForButton="Częstoskurcz komorowy";
+                case 7 -> levelNameForButton="Tachykardia";
+                case 8 -> levelNameForButton="Asystolia";
                 default -> levelNameForButton="";
             }
             //JButton levelButton = new JButton("Poziom " + levelNumber+" \n"+levelNameForButton);
