@@ -34,9 +34,9 @@ class HeartRhythmCurve {
     }
 
     private void generateSine(){
-        int amplitude = 50;
-        int offsetY = 100;
-        for (int x = 80; x < 2000; x++) { // Długość krzywej
+        int amplitude = 100;
+        int offsetY = 400;
+        for (int x = 80; x < 2000; x++) {
             int y = (int) (amplitude * Math.sin(x * 0.03) + offsetY);
             curvePoints.add(new Point(x, y));
         }
@@ -146,7 +146,7 @@ class HeartRhythmCurve {
     private void generateAsystoly(){
         curvePoints.clear();
         int baseline = 280;
-        for (int x = 0; x < 1800; x++) {
+        for (int x = 100; x < 500; x++) {
             int y=baseline; // Wolniejsza sinusoida
             curvePoints.add(new Point(x, y));
         }
@@ -187,7 +187,7 @@ class HeartRhythmCurve {
         return curvePoints;
     }
 
-    public void rotateCurveAroundBaseline(double angle) {
+    /*public void rotateCurveAroundBaseline(double angle) {
         double baseline = 280; // Linia bazowa
         double cosTheta = Math.cos(angle); // Kosinus kąta rotacji
 
@@ -205,11 +205,16 @@ class HeartRhythmCurve {
             // Aktualizacja punktu
             curvePoints.set(i, new Point(x, rotatedY));
         }
-    }
+    }*/
 
     public void moveCurve(int dx) {
         for (Point point : curvePoints) {
             point.x += dx;
         }
+    }
+
+    public void reset() {
+        this.curvePoints.clear();
+        generateCurve();
     }
 }

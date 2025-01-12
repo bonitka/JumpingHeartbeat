@@ -6,6 +6,8 @@ class Ring {
     private Point position;
     private int width;
     private int height;
+    private int radiusX = width / 2;
+    private int radiusY = height / 2;
 
     public Ring(Point position, int width, int height) {
         this.position = position;
@@ -18,6 +20,10 @@ class Ring {
         return position.x;
     }
 
+    public void setCenter(Point center) {
+        this.position = center;
+    }
+
     // Getter dla środka Y
     public int getCenterY() {
         return position.y;
@@ -28,9 +34,17 @@ class Ring {
         return width / 2;
     }
 
+    public void setRadiusX(int radiusX) {
+        this.radiusX = radiusX;
+    }
+
     // Getter dla półosi pionowej (promień w pionie)
     public int getRadiusY() {
         return height / 2;
+    }
+
+    public void setRadiusY(int radiusY) {
+        this.radiusY = radiusY;
     }
 
     public void move(int dx, int dy) {

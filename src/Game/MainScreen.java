@@ -2,6 +2,8 @@ package Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 class MainScreen extends JPanel {
     private JumpingHeartbeat parent;
@@ -18,9 +20,9 @@ class MainScreen extends JPanel {
         this.setBackground(offWhite);
 
         /*unlockedLevels = new boolean[8];
-        unlockedLevels[0] = true; // Odblokowany poziom 1
+        unlockedLevels[0] = true;
         for (int i = 1; i < unlockedLevels.length; i++) {
-            unlockedLevels[i] = false; // Pozostałe poziomy zablokowane
+            unlockedLevels[i] = false;
         }*/
 
         setLayout(new BorderLayout());
@@ -82,7 +84,7 @@ class MainScreen extends JPanel {
             levelButton.setFocusPainted(false);
 
             if (1!=1) {
-                levelButton.setEnabled(false); // Wyłącz przycisk dla zablokowanego poziomu
+                levelButton.setEnabled(false);
             } else {
                 levelButton.addActionListener(e -> parent.startGame(createLevel(levelNumber)));
             }
@@ -135,6 +137,18 @@ class MainScreen extends JPanel {
         downPanel.add(downleftPanel, BorderLayout.WEST);
         downPanel.add(downrightPanel, BorderLayout.EAST);
         add(downPanel, BorderLayout.SOUTH);
+
+        restartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //action performed by this button
+            }
+        });
+
+        finishButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     private Level createLevel(int levelNumber) {

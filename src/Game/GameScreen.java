@@ -12,8 +12,9 @@ class GameScreen extends JPanel {
     private Level level;
     private int score;
     private Ring ring;
-    private boolean isGameOver=false;
+    private boolean isGameOver = false;
     private Timer movementTimer;
+    private boolean dialogShown = false;
 
 
     public GameScreen(JumpingHeartbeat parent, Level level) {
@@ -21,6 +22,46 @@ class GameScreen extends JPanel {
         this.level = level;
         this.score = 0;
         ring = new Ring(new Point(100, 250), level.getRingSize(), level.getRingSize() * 4);
+
+        Color offWhite=new Color(252,252,252);
+        this.setBackground(offWhite);
+
+        setLayout(new BorderLayout());
+
+        ImageIcon restart = new ImageIcon("restart.jpg");
+        Image scaledRestart = restart.getImage().getScaledInstance(105, 45, Image.SCALE_SMOOTH);
+        JButton restartButton = new JButton(new ImageIcon(scaledRestart));
+        restartButton.setContentAreaFilled(false);
+        restartButton.setBorderPainted(false);
+
+        ImageIcon finish = new ImageIcon("finish.jpg");
+        Image scaledFinish = finish.getImage().getScaledInstance(105, 45, Image.SCALE_SMOOTH);
+        JButton finishButton = new JButton(new ImageIcon(scaledFinish));
+        finishButton.setContentAreaFilled(false);
+        finishButton.setBorderPainted(false);
+
+        JPanel downPanel = new JPanel(new BorderLayout());
+        downPanel.setBackground(offWhite);
+
+        JPanel downleftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        downleftPanel.setBackground(offWhite);
+        downleftPanel.add(restartButton);
+        downleftPanel.add(finishButton);
+
+        downPanel.add(downleftPanel, BorderLayout.WEST);
+        add(downPanel, BorderLayout.SOUTH);
+
+        restartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                resetGame();
+            }
+        });
+
+        finishButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); // Zamyka system
+            }
+        });
 
         setFocusable(true);
         addHierarchyListener(e -> {
@@ -36,39 +77,68 @@ class GameScreen extends JPanel {
             }
         });
 
+        int speed=5;
         movementTimer = new Timer(50, e -> {
-            level.getCurve().moveCurve(-2); // Przesuwamy krzywą w lewo
-
-            List<Point> curvePoints = level.getCurve().getCurvePoints();  // Pobieramy punkty krzywej
-            int centerX = ring.getCenterX();  // Środek elipsy
-            int centerY = ring.getCenterY();
-            int a = ring.getRadiusX();  // Półos pozioma
-            int b = ring.getRadiusY();  // Półos pionowa
-
-            check();
-            if (isGameOver) {
-                movementTimer.stop(); // Zatrzymujemy grę, jeśli nastąpiła kolizja
+            if (isGameOver==true) {
+                movementTimer.stop();
                 return;
             }
-
+            level.getCurve().moveCurve(-speed);
+            check();
+            if(isGameOver == false)
+            {
+                checkWin();
+            }
             repaint();
         });
         movementTimer.start();
+    }
 
+    private void resetGame() {
+        ring.setCenter(new Point(100, 250));
+        ring.setRadiusX(level.getRingSize());
+        ring.setRadiusY(level.getRingSize() * 4);
+
+        level.getCurve().reset();
+
+        score = 0;
+        isGameOver = false;
+        dialogShown = false;
+
+        movementTimer.start();
+
+        repaint();
     }
 
     private void check(){
+        if (isGameOver) {
+            return;
+        }
         for (Point point : level.getCurve().getCurvePoints()){
             if (point.x== ring.getCenterX()) {
-                if (point.y >= (ring.getCenterY() - ring.getRadiusY())
-                        && point.y <= (ring.getCenterY() + ring.getRadiusY())) {
+                if (point.y >= (ring.getCenterY() - ring.getRadiusY()) && point.y <= (ring.getCenterY() + ring.getRadiusY())) {
                     return;
                 }else{
                     isGameOver=true;
+                    movementTimer.stop();
                     colision();
                     return;
                 }
             }
+        }
+    }
+
+    private void checkWin() {
+        if (isGameOver || dialogShown){
+            return;
+        }
+        boolean allPointsOffRing = level.getCurve().getCurvePoints().stream().allMatch(point -> point.x < 90);
+        if (allPointsOffRing) {
+            isGameOver = true;
+            dialogShown = true;
+            movementTimer.stop();
+            JOptionPane.showMessageDialog(this, "Gratulacje! Wygrałeś poziom.");
+            parent.returnToMainScreen();
         }
     }
 
@@ -86,7 +156,8 @@ class GameScreen extends JPanel {
     }
 
     protected void paintGame(Graphics g) {
-        g.setColor(Color.RED);
+        Color reddish=new Color(130,7,8);
+        g.setColor(reddish);
         for (Point point : level.getCurve().getCurvePoints()) {
             g.fillOval(point.x, point.y, 5, 5);
         }
@@ -96,7 +167,13 @@ class GameScreen extends JPanel {
     }
 
     protected void colision(){
+        if(dialogShown) {
+            return;
+        } else {
+        isGameOver=true;
+        dialogShown=true;
         JOptionPane.showMessageDialog(this, "Kolizja! Koniec gry.");
         parent.returnToMainScreen();
+        }
     }
 }
