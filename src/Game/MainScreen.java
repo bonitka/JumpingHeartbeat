@@ -89,6 +89,17 @@ class MainScreen extends JPanel {
                 levelButton.addActionListener(e -> parent.startGame(createLevel(levelNumber)));
             }
             levelButton.addActionListener(e -> parent.startGame(createLevel(levelNumber)));
+            levelButton.addActionListener(e -> {
+                Level level = createLevel(levelNumber);
+                SettingsDialog settingsDialog = new SettingsDialog(parent, level.getRingSize(), level.getCurve().getSpeed());
+                settingsDialog.setVisible(true);
+
+                if (settingsDialog.isConfirmed()) {
+                    level.setRingSize(settingsDialog.getRingSize());
+                    level.getCurve().setSpeed(settingsDialog.getCurveSpeed());
+                    parent.startGame(level);
+                }
+            });
             levelPanel.add(levelButton);
         }
         add(levelPanel, BorderLayout.CENTER);

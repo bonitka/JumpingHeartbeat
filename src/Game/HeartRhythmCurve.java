@@ -7,6 +7,7 @@ import java.util.List;
 class HeartRhythmCurve {
     private List<Point> curvePoints;
     private String rhythmName;
+    private int speed;
 
     public String getName(){
         return rhythmName;
@@ -216,5 +217,13 @@ class HeartRhythmCurve {
     public void reset() {
         this.curvePoints.clear();
         generateCurve();
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 }

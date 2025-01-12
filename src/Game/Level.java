@@ -85,4 +85,15 @@ class Level {
     public int getRingSize() {
         return ringSize;
     }
+
+    public void setRingSize(int ringSize) {
+        this.ringSize = ringSize;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+        if (curve != null) {
+            curve.setSpeed(speed);
+        }
+    }
 }
