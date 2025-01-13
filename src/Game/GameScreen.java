@@ -29,6 +29,18 @@ class GameScreen extends JPanel {
 
         setLayout(new BorderLayout());
 
+        JLabel levelImageLabel = new JLabel(level.getLevelImage());
+        add(levelImageLabel, BorderLayout.NORTH);
+
+        JPanel upPanel = new JPanel(new BorderLayout());
+        upPanel.setBackground(offWhite);
+        JPanel upleftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        upleftPanel.setBackground(offWhite);
+        upleftPanel.add(levelImageLabel);
+        upPanel.add(upleftPanel, BorderLayout.WEST);
+        add(upPanel, BorderLayout.NORTH);
+
+
         ImageIcon restart = new ImageIcon("restart.jpg");
         Image scaledRestart = restart.getImage().getScaledInstance(105, 45, Image.SCALE_SMOOTH);
         JButton restartButton = new JButton(new ImageIcon(scaledRestart));
@@ -175,5 +187,11 @@ class GameScreen extends JPanel {
         JOptionPane.showMessageDialog(this, "Kolizja! Koniec gry.");
         parent.returnToMainScreen();
         }
+    }
+
+    private ImageIcon createScaledImageIcon(String filePath, int width, int height) {
+        ImageIcon icon = new ImageIcon(filePath);
+        Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledImage);
     }
 }
