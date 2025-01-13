@@ -59,7 +59,7 @@ class Level {
             }
             case 5 -> {
                 name = "Arrhythmia";
-                ringSize = 30;
+                ringSize = 100;
                 speed = 5;
                 curve = new HeartRhythmCurve("Arrhythmia");
                 levelImage = createScaledImageIcon("arrhythmia.jpg", 320, 85);
