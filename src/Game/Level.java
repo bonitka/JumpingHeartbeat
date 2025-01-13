@@ -13,7 +13,7 @@ class Level {
     private String[] questions;
     private int ringSize;
     private int speed;
-    private int levelNumber;
+    public int levelNumber;
     private ImageIcon levelImage;
 
     public Level(int levelNumber) {
@@ -28,7 +28,6 @@ class Level {
     }
 
     private void configureLevel() {
-        //ImageIcon levelImage = null;
         switch (levelNumber) {
             case 1 -> {
                 name = "Sine";
@@ -80,11 +79,11 @@ class Level {
                 levelImage = createScaledImageIcon("tachycardia.jpg", 320, 85);
             }
             case 8 -> {
-                name="Asystoly";
+                name="Asystole";
                 ringSize = 50;
                 speed = 2;
-                curve = new HeartRhythmCurve("Asystoly");
-                levelImage = createScaledImageIcon("asystoly.jpg", 320, 85);
+                curve = new HeartRhythmCurve("Asystole");
+                levelImage = createScaledImageIcon("asystole.jpg", 320, 85);
             }
         }
     }
@@ -95,6 +94,10 @@ class Level {
 
     public HeartRhythmCurve getCurve() {
         return curve;
+    }
+
+    public int getLevelNumber(){
+        return levelNumber;
     }
 
     public int getRingSize() {

@@ -28,8 +28,7 @@ class HeartRhythmCurve {
             case "Arrhythmia" -> generateArrhythmia();
             case "Ventricular Tachycardia" -> generateVentricularTachycardia();
             case "Tachycardia" -> generateTachycardia();
-            case "Asystoly" -> generateAsystoly();
-            //case "New" -> generateNewCurve();
+            case "Asystole" -> generateAsystole();
             default -> generateSine(); // Domyślny rytm
         }
     }
@@ -144,7 +143,7 @@ class HeartRhythmCurve {
         }
     }
 
-    private void generateAsystoly(){
+    private void generateAsystole(){
         curvePoints.clear();
         int baseline = 280;
         for (int x = 100; x < 500; x++) {

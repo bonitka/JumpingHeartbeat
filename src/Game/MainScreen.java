@@ -91,7 +91,7 @@ class MainScreen extends JPanel {
 
             levelButton.addActionListener(e -> {
                 Level level = createLevel(levelNumber);
-                SettingsDialog settingsDialog = new SettingsDialog(parent, level.getRingSize(), level.getCurve().getSpeed());
+                SettingsDialog settingsDialog = new SettingsDialog(parent, level.getRingSize(), level.getCurve().getSpeed(),level);
                 settingsDialog.setVisible(true);
 
                 boolean settingsDialogisConfirmed=settingsDialog.isConfirmed();
