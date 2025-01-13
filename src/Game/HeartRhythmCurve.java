@@ -45,21 +45,19 @@ class HeartRhythmCurve {
         }
     }
 
-    private void generateHealthyRhythm(){
-        double length = 655;
-        double y=1;
+    private void generateHealthyRhythm() {
+        curvePoints.clear();
+        double length = 633;
+        double y = 1;
         double cycleTime = 5.0;
-        double baseline=400;
+        double baseline = 400;
         double step = 0.5;
         int amplitude = 15;
-        int move=0;
         int totalCycles = 4;
 
-        List<Point> originalCurve = new ArrayList<>();
-
         for (int cycle = 0; cycle < totalCycles; cycle++) {
-            for (double i = 0; i < 655; i += step) {
-                double currentI = i + cycle * 655;
+            for (double i = 0; i < length; i += step) {
+                double currentI = i;
 
                 if (currentI >= 0 && currentI < 210) {
                     y = 0;
@@ -79,20 +77,11 @@ class HeartRhythmCurve {
                     y = 0;
                 } else if (currentI >= 570 && currentI < 633) {
                     y = ((amplitude * 3) * Math.sin((currentI * 0.05) - 0.224));
-                } else if (currentI >= 633 && currentI < 655) {
-                    y = 0;
                 }
-                int x1 = (int) (5 * (currentI / cycleTime));
+
+                int x1 = (int) (5 * (currentI / cycleTime) + cycle * length);
                 int yInt = (int) (y + baseline);
-
-                originalCurve.add(new Point(x1, yInt));
-            }
-        }
-
-        for (Point point : originalCurve) {
-            curvePoints.add(point);
-            for(int j=1;j<5;j++) {
-                curvePoints.add(new Point(point.x + (int) length * j, point.y));
+                curvePoints.add(new Point(x1, yInt));
             }
         }
     }
@@ -111,9 +100,43 @@ class HeartRhythmCurve {
 
     private void generateBradycardia() {
         curvePoints.clear();
-        for (int x = 0; x < 800; x++) {
-            int y = (int) (100 + 10 * Math.sin(0.05 * x)); // Wolniejsza sinusoida
-            curvePoints.add(new Point(x, y));
+        double length = 1200;
+        double y = 1;
+        double cycleTime = 5.0;
+        double baseline = 400;
+        double step = 0.5;
+        int amplitude = 15;
+        int totalCycles = 3;
+
+        for (int cycle = 0; cycle < totalCycles; cycle++) {
+            for (double i = 0; i < length; i += step) {
+                double currentI = i;
+
+                if (currentI >= 0 && currentI < 210) {
+                    y = 0;
+                } else if (currentI >= 210 && currentI < 270) {
+                    y = (amplitude * Math.sin(currentI * 0.1)) - 15;
+                } else if (currentI >= 270 && currentI < 280) {
+                    y = 0;
+                } else if (currentI >= 280 && currentI < 300) {
+                    y = 3 * (currentI - 300) + 60;
+                } else if (currentI >= 300 && currentI < 400) {
+                    y = -3 * (currentI - 400) - 245;
+                } else if (currentI >= 400 && currentI < 500) {
+                    y = 4 * (currentI - 530) + 280;
+                } else if (currentI >= 500 && currentI < 553) {
+                    y = -3 * (currentI - 550) + 10;
+                } else if (currentI >= 553 && currentI < 570) {
+                    y = 0;
+                } else if (currentI >= 570 && currentI < 633) {
+                    y = ((amplitude * 3) * Math.sin((currentI * 0.05) - 0.224));
+                } else if (currentI >= 633 && currentI < 1200) {
+                    y = 0;
+                }
+                int x1 = (int) (5 * (currentI / cycleTime) + cycle * length);
+                int yInt = (int) (y + baseline);
+                curvePoints.add(new Point(x1, yInt));
+            }
         }
     }
 
