@@ -34,9 +34,13 @@ class HeartRhythmCurve {
     }
 
     private void generateSine(){
-        int amplitude = 100;
-        int offsetY = 400;
-        for (int x = 80; x < 2000; x++) {
+        int amplitude = 105;
+        int offsetY = 350;
+        for (int x=0;x<210;x++){
+            int y = offsetY;
+            curvePoints.add(new Point(x, y));
+        }
+        for (int x = 210; x < 2000; x++) {
             int y = (int) (amplitude * Math.sin(x * 0.03) + offsetY);
             curvePoints.add(new Point(x, y));
         }
