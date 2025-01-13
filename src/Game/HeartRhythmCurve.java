@@ -131,7 +131,7 @@ class HeartRhythmCurve {
         }
     }
 
-    /*private void generateArrhythmia() {
+    private void generateArrhythmia() {
         curvePoints.clear();
         double cycleLength = 445;
         double y = 1;
@@ -197,7 +197,7 @@ class HeartRhythmCurve {
                 curvePoints.add(new Point(x1, yInt));
             }
         }
-    }*/
+    }
     /*private void generateArrhythmia() {
         curvePoints.clear();
         double cycleLength = 445;
