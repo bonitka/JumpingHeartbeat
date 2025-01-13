@@ -17,6 +17,7 @@ class GameScreen extends JPanel {
     private boolean dialogShown = false;
     //int speed = SettingsDialog.getCurveSpeedSet();
     int speed = 5;
+    Color reddish=new Color(130,7,8);
 
     public GameScreen(JumpingHeartbeat parent, Level level) {
         this.parent = parent;
@@ -30,16 +31,28 @@ class GameScreen extends JPanel {
         setLayout(new BorderLayout());
 
         JLabel levelImageLabel = new JLabel(level.getLevelImage());
-        add(levelImageLabel, BorderLayout.NORTH);
+        JLabel pointsLabel = new JLabel("Zebrane punkty: " + score);
+        pointsLabel.setFont(new Font("Muli",Font.PLAIN,20));
+        pointsLabel.setBorder(BorderFactory.createLineBorder(reddish,7));
+        pointsLabel.setBackground(offWhite);
+        pointsLabel.setBorder(BorderFactory.createCompoundBorder(
+                pointsLabel.getBorder(),
+                BorderFactory.createEmptyBorder(5, 15, 5, 15)
+        ));
 
         JPanel upPanel = new JPanel(new BorderLayout());
         upPanel.setBackground(offWhite);
+
+        JPanel uprightPanel = new JPanel(new BorderLayout());
+        uprightPanel.setBackground(offWhite);
+        uprightPanel.add(pointsLabel, BorderLayout.EAST);
+        uprightPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
         JPanel upleftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         upleftPanel.setBackground(offWhite);
         upleftPanel.add(levelImageLabel);
         upPanel.add(upleftPanel, BorderLayout.WEST);
+        upPanel.add(uprightPanel, BorderLayout.EAST);
         add(upPanel, BorderLayout.NORTH);
-
 
         ImageIcon restart = new ImageIcon("restart.jpg");
         Image scaledRestart = restart.getImage().getScaledInstance(105, 45, Image.SCALE_SMOOTH);
