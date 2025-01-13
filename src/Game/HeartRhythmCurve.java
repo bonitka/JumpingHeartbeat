@@ -86,18 +86,6 @@ class HeartRhythmCurve {
         }
     }
 
-    private void generateArrhythmia() {
-        curvePoints.clear();
-        for (int x = 0; x < 800; x++) {
-            int y = (int) (100 + (x % 50 < 25 ? 30 : 10)); // Nierównomierny rytm
-            curvePoints.add(new Point(x, y));
-        }
-    }
-
-    private void generateVentricularTachycardia(){
-        curvePoints.clear();
-    }
-
     private void generateBradycardia() {
         curvePoints.clear();
         double length = 1200;
@@ -140,108 +128,75 @@ class HeartRhythmCurve {
         }
     }
 
+    private void generateArrhythmia() {
+        curvePoints.clear();
+        for (int x = 0; x < 800; x++) {
+            int y = (int) (100 + (x % 50 < 25 ? 30 : 10)); // Nierównomierny rytm
+            curvePoints.add(new Point(x, y));
+        }
+    }
+
+    private void generateVentricularTachycardia(){
+        curvePoints.clear();
+    }
+
     private void generateFibrillation(){
         curvePoints.clear();
     }
 
     private void generateTachycardia() {
         curvePoints.clear();
-        double length = 1200;
-        double baseline = 280;
-        double step = 0.05;
-        double cycleTime = 150;
-        double verticalScale1 = 20;
-        double verticalScale2=2;
+        double cycleLength = 445;
+        double y = 1;
+        double cycleTime = 5.0;
+        double baseline = 400;
+        double step = 0.5;
+        int amplitude = 15;
+        int totalCycles = 4;
 
-        for (double i = 0; i < length; i += step) {
-            double y = 0;
-            double timeInCycle = i % cycleTime;
+        for (int cycle = 0; cycle < totalCycles; cycle++) {
+            for (double i = 0; i < cycleLength; i += step) {
+                double shiftedI = i + cycle * cycleLength;
 
-            if (timeInCycle >= 0 && timeInCycle < 40) {
-                y = 2 * Math.sin((timeInCycle / 40) * Math.PI) * verticalScale2;
-            } else if (timeInCycle >= 40 && timeInCycle < 60) {
-                y = -1 * (timeInCycle - 40) / 20 * verticalScale1;
-            } else if (timeInCycle >= 60 && timeInCycle < 80) {
-                y = 12 * (1 - Math.abs((timeInCycle - 70) / 10)) * verticalScale1;
-            } else if (timeInCycle >= 80 && timeInCycle < 100) {
-                y = -8 * (1 - Math.abs((timeInCycle - 90) / 10)) * verticalScale1;
-            } else if (timeInCycle >= 100 && timeInCycle < 160) {
-                y = 3 * Math.sin(((timeInCycle - 100) / 60) * Math.PI) * verticalScale2;
-            } else {
-                y = 0;
+                if (i >= 0 && i < 60) {
+                    y = (amplitude * Math.sin((i + 210) * 0.1)) - 15;
+                } else if (i >= 60 && i < 70) {
+                    y = 0;
+                } else if (i >= 70 && i < 90) {
+                    y = 3 * ((i + 210) - 300) + 60;
+                } else if (i >= 90 && i < 190) {
+                    y = -3 * ((i + 210) - 400) - 245;
+                } else if (i >= 190 && i < 290) {
+                    y = 4 * ((i + 210) - 530) + 280;
+                } else if (i >= 290 && i < 343) {
+                    y = -3 * ((i + 210) - 550) + 10;
+                } else if (i >= 343 && i < 360) {
+                    y = 0;
+                } else if (i >= 360 && i < 423) {
+                    y = ((amplitude * 3) * Math.sin(((i + 210) * 0.05) - 0.224));
+                } else if (i >= 423 && i < 445) {
+                    y = 0;
+                }
+                int x1 = (int) (5 * (shiftedI / cycleTime));
+                int yInt = (int) (y + baseline);
+
+                curvePoints.add(new Point(x1, yInt));
             }
-
-            // Przeliczenie pozycji
-            int x1 = (int) (i); // Skala pozioma (bez zmiany)
-            int yInt = (int) (-y + baseline); // Przesunięcie na linię bazową
-
-            curvePoints.add(new Point(x1, yInt));
         }
     }
 
     private void generateAsystole(){
         curvePoints.clear();
-        int baseline = 280;
-        for (int x = 100; x < 500; x++) {
-            int y=baseline; // Wolniejsza sinusoida
+        int baseline = 400;
+        for (int x = 100; x < 1500; x++) {
+            int y=baseline;
             curvePoints.add(new Point(x, y));
-        }
-    }
-
-    private void generateNewCurve(){
-        double length = 1200; // Długość całej krzywej
-        double baseline = 280;
-        double step = 0.5; // Krok w milisekundach
-        double cycleTime = 300;
-        double verticalScale = 5.0;
-
-        for (double i = 0; i < length; i += step) {
-            double y = 0;
-            double timeInCycle = i % cycleTime; // Czas w obrębie jednego cyklu
-
-            if (timeInCycle >= 0 && timeInCycle < 50) {
-                y = 2 * Math.sin((timeInCycle / 50) * Math.PI) * verticalScale;
-            } else if (timeInCycle >= 50 && timeInCycle < 70) {
-                y = -0.005 * (timeInCycle - 50) * verticalScale;
-            } else if (timeInCycle >= 70 && timeInCycle < 90) {
-                y = 15 * (1 - Math.abs((timeInCycle - 80) / 10)) * verticalScale;
-            } else if (timeInCycle >= 90 && timeInCycle < 110) {
-                y = -10 * (1 - Math.abs((timeInCycle - 100) / 10)) * verticalScale;
-            } else if (timeInCycle >= 110 && timeInCycle < 160) {
-                y = 4 * Math.sin(((timeInCycle - 110) / 50) * Math.PI) * verticalScale;
-            } else {
-                y = 0;
-            }
-            int x1 = (int) (i); // Skala pozioma
-            int yInt = (int) (y + baseline); // Pozycja pionowa przesunięta linią bazową
-
-            curvePoints.add(new Point(x1, yInt));
         }
     }
 
     public List<Point> getCurvePoints() {
         return curvePoints;
     }
-
-    /*public void rotateCurveAroundBaseline(double angle) {
-        double baseline = 280; // Linia bazowa
-        double cosTheta = Math.cos(angle); // Kosinus kąta rotacji
-
-        // Iterujemy przez wszystkie punkty krzywej
-        for (int i = 0; i < curvePoints.size(); i++) {
-            Point originalPoint = curvePoints.get(i);
-
-            // Przesunięcie y względem linii bazowej
-            int x = originalPoint.x; // Pozycja X pozostaje bez zmian
-            int y = originalPoint.y;
-
-            // Rotacja wokół baseline
-            int rotatedY = (int) (baseline + (y - baseline) * cosTheta);
-
-            // Aktualizacja punktu
-            curvePoints.set(i, new Point(x, rotatedY));
-        }
-    }*/
 
     public void moveCurve(int dx) {
         for (Point point : curvePoints) {
