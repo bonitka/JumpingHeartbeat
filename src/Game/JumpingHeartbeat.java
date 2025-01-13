@@ -5,7 +5,6 @@ import javax.swing.*;
 public class JumpingHeartbeat extends JFrame {
     private Level currentLevel;
 
-
     public JumpingHeartbeat() {
         setTitle("Jumping Heartbeat");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

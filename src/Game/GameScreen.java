@@ -15,7 +15,8 @@ class GameScreen extends JPanel {
     private boolean isGameOver = false;
     private Timer movementTimer;
     private boolean dialogShown = false;
-
+    //int speed = SettingsDialog.getCurveSpeedSet();
+    int speed = 5;
 
     public GameScreen(JumpingHeartbeat parent, Level level) {
         this.parent = parent;
@@ -77,7 +78,6 @@ class GameScreen extends JPanel {
             }
         });
 
-        int speed=5;
         movementTimer = new Timer(50, e -> {
             if (isGameOver==true) {
                 movementTimer.stop();

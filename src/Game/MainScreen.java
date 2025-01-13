@@ -83,20 +83,23 @@ class MainScreen extends JPanel {
             levelButton.setContentAreaFilled(false);
             levelButton.setFocusPainted(false);
 
-            if (1!=1) {
+            /*if (1!=1) {
                 levelButton.setEnabled(false);
             } else {
                 levelButton.addActionListener(e -> parent.startGame(createLevel(levelNumber)));
-            }
-            levelButton.addActionListener(e -> parent.startGame(createLevel(levelNumber)));
+            }*/
+
             levelButton.addActionListener(e -> {
                 Level level = createLevel(levelNumber);
                 SettingsDialog settingsDialog = new SettingsDialog(parent, level.getRingSize(), level.getCurve().getSpeed());
                 settingsDialog.setVisible(true);
 
-                if (settingsDialog.isConfirmed()) {
+                boolean settingsDialogisConfirmed=settingsDialog.isConfirmed();
+                System.out.println(settingsDialogisConfirmed);
+
+                if (settingsDialogisConfirmed==true) {
                     level.setRingSize(settingsDialog.getRingSize());
-                    level.getCurve().setSpeed(settingsDialog.getCurveSpeed());
+                    level.getCurve().setSpeed(settingsDialog.getCurveSpeedSet());
                     parent.startGame(level);
                 }
             });
