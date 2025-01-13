@@ -38,8 +38,8 @@ class Level {
             }
             case 2 -> {
                 name = "Healthy";
-                ringSize = 30;
-                speed = 2;
+                ringSize = 50;
+                speed = 1;
                 curve = new HeartRhythmCurve("Healthy");
                 levelImage = createScaledImageIcon("healthy.jpg", 320, 85);
             }

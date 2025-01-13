@@ -35,7 +35,7 @@ class HeartRhythmCurve {
 
     private void generateSine(){
         int amplitude = 105;
-        int offsetY = 350;
+        int offsetY = 400;
         for (int x=0;x<210;x++){
             curvePoints.add(new Point(x, offsetY));
         }
@@ -46,43 +46,53 @@ class HeartRhythmCurve {
     }
 
     private void generateHealthyRhythm(){
-        double length=500;
-        double x=1, y=1;
+        double length = 655;
+        double y=1;
         double cycleTime = 5.0;
-        double baseline=280;
+        double baseline=400;
         double step = 0.5;
+        int amplitude = 15;
+        int move=0;
+        int totalCycles = 4;
 
         List<Point> originalCurve = new ArrayList<>();
 
-        for (double i=0;i<length; i+=step){
-            if (i >= 0 && i < 150){
-                y=0;
-            } else if (i>=150 && i<160){
-                y=(-6)*(i-150);
-            } else if (i>=160 && i<180){
-                y=8*(i-167);
-            } else if (i>=180 && i<250){
-                y=(-5)*(i-200);
-            } else if (i>=250 && i<345){
-                y=(5)*(i-300);
-            } else if (i>=345 && i<450){
-                y=(-3)*(i-420);
-            } else if (i>=450 && i<470){
-                y=(6)*(i-465);
-            } else if (i>=470 && i<480){
-                y=(-8)*(i-473);
-            } else if (i>=480 && i<490){
-                y=6*(i-490);
-            }
-            int x1 = (int) (5 * (i/cycleTime)); // Skala pozioma
-            int yInt = (int) (y+baseline); // Pozycja pionowa
+        for (int cycle = 0; cycle < totalCycles; cycle++) {
+            for (double i = 0; i < 655; i += step) {
+                double currentI = i + cycle * 655;
 
-            originalCurve.add(new Point(x1, yInt));
+                if (currentI >= 0 && currentI < 210) {
+                    y = 0;
+                } else if (currentI >= 210 && currentI < 270) {
+                    y = (amplitude * Math.sin(currentI * 0.1)) - 15;
+                } else if (currentI >= 270 && currentI < 280) {
+                    y = 0;
+                } else if (currentI >= 280 && currentI < 300) {
+                    y = 3 * (currentI - 300) + 60;
+                } else if (currentI >= 300 && currentI < 400) {
+                    y = -3 * (currentI - 400) - 245;
+                } else if (currentI >= 400 && currentI < 500) {
+                    y = 4 * (currentI - 530) + 280;
+                } else if (currentI >= 500 && currentI < 553) {
+                    y = -3 * (currentI - 550) + 10;
+                } else if (currentI >= 553 && currentI < 570) {
+                    y = 0;
+                } else if (currentI >= 570 && currentI < 633) {
+                    y = ((amplitude * 3) * Math.sin((currentI * 0.05) - 0.224));
+                } else if (currentI >= 633 && currentI < 655) {
+                    y = 0;
+                }
+                int x1 = (int) (5 * (currentI / cycleTime));
+                int yInt = (int) (y + baseline);
+
+                originalCurve.add(new Point(x1, yInt));
+            }
         }
+
         for (Point point : originalCurve) {
-            curvePoints.add(point); // Oryginalna krzywa
-            for(int j=1;j<10;j++) {
-                curvePoints.add(new Point(point.x + (int) length * j, point.y)); // Kopia przesunięta
+            curvePoints.add(point);
+            for(int j=1;j<5;j++) {
+                curvePoints.add(new Point(point.x + (int) length * j, point.y));
             }
         }
     }

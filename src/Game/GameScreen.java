@@ -23,7 +23,7 @@ class GameScreen extends JPanel {
         this.parent = parent;
         this.level = level;
         this.score = 0;
-        ring = new Ring(new Point(100, 350), level.getRingSize(), level.getRingSize() * 4);
+        ring = new Ring(new Point(100, 400), level.getRingSize(), level.getRingSize() * 4);
 
         Color offWhite=new Color(252,252,252);
         this.setBackground(offWhite);
